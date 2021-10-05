@@ -1,0 +1,47 @@
+Name,Classes,BigCon,SmallCon
+Castle,large regular,2,3
+Death Mountain Crater,medium regular,3,3
+Death Mountain Trail,medium regular,3,3
+Desert Colossus,medium regular,3,2
+Gerudo Fortress,medium regular,3,1
+Gerudo Valley,medium regular,3,3
+Goron City,medium town,3,2
+Graveyard,medium town,2,5
+Haunted Wasteland,medium regular,2,0
+Hyrule Field,huge regular,7,8
+Kakariko Village,huge town,4,12
+Kakariko Potion Shop,small town,2,0
+Kokiri Forest,large town,3,7
+Lake Hylia,medium regular,4,3
+Lon Lon Ranch,medium town,1,4
+Lost Woods,medium regular,5,3
+Lost Woods Bridge,medium regular,3,0
+Market,large town,3,8
+Market Entrance,medium town,2,3
+Sacred Forest Meadow,medium regular,2,3
+Temple of Time,medium town,1,0
+Temple of Time Entrance,medium town,1,1
+Windmill,small regular,2,0
+Zora Fountain,medium regular,3,1
+Zora River,medium regular,3,3
+Zora’s Domain,medium town,3,2
+Child Spawn,medium spawn,1,0
+Adult Spawn,medium spawn,1,0
+Prelude,medium song,1,0
+Minuet,medium song,1,0
+Bolero,medium song,1,0
+Serenade,medium song,1,0
+Requiem,medium song,1,0
+Nocturne,medium song,1,0
+Deku Tree,large dungeon,1,0
+Dodongo’s Cavern,large dungeon,1,0
+Jabu-Jabu,large dungeon,1,0
+Forest Temple,large dungeon,1,0
+Fire Temple,large dungeon,1,0
+Water Temple,large dungeon,1,0
+Shadow Temple,large dungeon,1,0
+Spirit Temple,large dungeon,2,0
+Ganon’s Castle,large dungeon,1,0
+Bottom of the Well,large dungeon,1,0
+Ice Cavern,large dungeon,1,0
+Gerudo Training Ground,large dungeon,1,0
