@@ -110,7 +110,10 @@ app.layout = html.Div([
                    options=[{'label': 'Edge Off', 'value': 'off'},  # these values HAVE to be strings or numbers
                             {'label': 'Edge On', 'value': 'on'}],
                    value='off'),
-    html.Div(id='radio_readout')
+    html.Div(id='radio_readout'),
+
+    # Wanted a textbox example for reference
+    dcc.Input(id='my-input', value='initial value', type='text')
 ])
 
 
