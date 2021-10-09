@@ -56,6 +56,21 @@ world_map = default_nodes + default_edges
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
+    html.Div([
+        html.Div(
+            className="app-header",
+            children=[
+                html.Div('ZOoTR World Mapper', className="app-header--title")
+            ]
+        )
+    ]),
+    html.Div(
+        children=html.Div([
+            html.H5('Example title bar in H5'),
+            html.Div('''
+                By Spekkio 2021. For randomised world maps.''')
+        ])
+    ),
     cyto.Cytoscape(
         id='cytoscape-two-nodes',
         layout={'name': 'cose'},
