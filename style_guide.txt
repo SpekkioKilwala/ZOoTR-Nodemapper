@@ -1,0 +1,75 @@
+Zelda: Ocarina of Time (Randomiser) - Spekkio's shuffled-world tool - Style Guide
+(for internal development reference)
+
+1. Always keep this file updated, this is the official one, ignore other files
+2. Always code towards what this file specifies
+
+General (default) page appearance:
+ - Keep the map field real-estate square, with any widgets in sidebars
+ - Night mode. Anything similar to Discord or Pycharm's night/dark mode is good.
+
+Node map shape:
+    - It should lay itself out as evenly as possible
+    - It should update to reflect changes automatically
+    - At the very least I want a smooth, animated shift when changes are applied (I'm pretty sure that option exists)
+    - I do NOT want a springy, live-updated, real-physics-sim situation. That reduces user control.
+    - indivisible groups of nodes (e.g. death mountain crater, Gerudo valley) are in CLUSTERS
+    - insignificant nodes that are fully attached to nodes in the same cluster join that cluster
+
+What gets drawn?
+As little as possible, while conveying the most USEFUL information.
+(The most useful information is: where can I go, and how can I get there?)
+The map should show:
+nodes:
+    - Child and adult spawns (until I have a setting/logic for which ones are available)
+    - 6 warp song icons, respectively according to whether an ocarina and their song are available
+    - any "non-insignificant" node/cluster that the user has added from a stock library
+    - any insignificant nodes, from library, that are NOT hidden.
+        insignificant nodes that are:
+        (SYMMETRICALLY attached to a non-insignificant non-selected node) [note, this makes it join that cluster]
+        AND
+        (not in a cluster which is selected or has any member selected)
+        are hidden.
+    - any *unconnected* loose ends attached to any of the above
+(knowing the nodes lets you work out what edges get drawn)
+edges:
+    - all the static edges (i.e. edges in initial clusters - things that are inseparable because they're the same map)
+    - (predefined) loose-end edges going to unconnected loose ends
+    - user-defined node-to-node edges.
+
+Attachment interface:
+    The user has loose ends visible on the map.
+    The user says "attach these two loose ends together (symmetrically)"
+    Those loose-end nodes and their edges disappear, and a new edge connecting the nodes appears.
+
+Quirks:
+    The user can always go from a "warp-able" location to a warp song node (they're added according to item tracker)
+    The "behind Mido" lost woods has a connection OUT ("to KF") and no connection IN.
+
+Node map looks:
+    Everything has a size: tiny, small, medium, large, huge. Examples.
+        Tiny: loose ends
+        Small: grottoes, houses, windmill/Dampé, shops
+        Medium: Most places. Warp song nodes, spawn nodes. Most cluster-internals.
+        Large: Market, Castle grounds, Kokiri forest, dungeons.
+        Huge: Kakariko, Hyrule field
+    Nodes are colour-coded.
+        Most places are green
+        KF, Kak, and Market are blue
+        Warp and spawn icons are yellow
+        Dungeons are red
+    Nodes are also shape-coded.
+        Most are round.
+        Dungeons are square.
+    Cluster labels:
+        On the top edge, bigger text
+    Individual node labels:
+        Medium text, on top of the dot/square
+        Loose ends get a "?"
+    Connection labels:
+        Smaller text.
+        Connected ones get a label at each end signifying what loading zone they're connected to
+        Unconnected ones get a single label NEAR the loose end.
+    Connection appearance:
+        Paths that can be taken under the current limitations in either direction are a single line.
+        If it's only one-way under the current limitations, then it has a midpoint arrow.

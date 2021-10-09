@@ -1,0 +1,32 @@
+File for planning different pseudocode things so that I don't have the IDE scream at me for unfinished/stub things.
+
+----------------
+
+Reminders / design goals.
+
+Functional programming principles.
+    Don't modify the data, make new data wherever possible.
+    This ISN'T possible EVERYWHERE.
+    The *program* actually does have a state. A record of the extra connections and rules the user has put in.
+    Those can be changed over time.
+    This stuff must strictly not be in the global scope.
+        At least, in deployment.
+        I can do tests with global stuff, but KEEP TRACK OF THEM (such as a common identifier in the name).
+
+Write good functions.
+    Maximise function *usability*.
+    Simply put: functions should be written to make the minimum possible number of assumptions about their usage.
+    They should simply describe what comes in and what goes out.
+    That means that it's only good sense for them to not change the data they were given.
+        If you do that, you assume that the programmer WANTED it changed.
+
+Write clear flowcharts.
+
+Design consistent and powerful patterns first, then adhere to them where practical.
+
+Clearly delineate the jurisdiction between functions and the flow of information.
+    One of the greatest strengths of functional programming is being able to clearly see what impacts what.
+    But sometimes there's global stuff (e.g. a user-created list of connections, settings, form state).
+    Sometimes it's just not practical to be purely functional.
+    In those cases, instead minimise the number of places where those values can CHANGE.
+    Ideally, there should be only one function that is "allowed" to do so.

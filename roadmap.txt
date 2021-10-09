@@ -1,0 +1,147 @@
+
+Goals that should be accessible (<1 evening even if it's not necessarily THIS evening):
+	- CSS
+	- Some kind (any kind) of interface for the user to say "make an edge between these things".
+	- A little frame where the user can toggle things (equipment) they have on and off. I got an icon pack.
+	- Displaying information associated with nodes (what checks remain there, colouring the node).
+
+--------------------
+
+V1.0 concept:
+
+There's a.... world instance map.
+The user can add nodes to the map. From a library.
+	"A node represents a zone that can be freely traversed."
+It displays how many "loose" connections remain and the user can connect up loose ends.
+
+When a user connects two loose ends together, they merge *and disappear*.
+(The two big nodes have a single line connecting them)
+
+Finally, that line is drawn in such a way that the user can see what is and isn't traversible.
+The state updates according to what the user has available.
+The user can filter for child-only, adult-only, and both.
+Routes that can be taken in either direction, under the current limitations, are solid.
+Routes that can be taken in only one direction have got an arrow at the midpoint.
+	There's probably also some colour-coding, once I know what I actually want to communicate.
+
+There's little labels on the connections so that the user can tell which connection is which.
+	That's critical.
+	TWO labels per line.
+
+Hyrule Field is a fat node with a... ring of loose ends connected around it.
+A house would be one node with a little loose end - however, I actually don't want tiny stray ends.
+Houses, shops, and grottos should be little tokens INTERNALLY to significant nodes.
+
+----------------------
+
+So the actual model is:
+
+There are nodes.
+Nodes correspond to areas. Possibly entire maps, possibly a subset of a map.
+From above:
+    "A node represents a zone that can be freely traversed."
+Therefore:
+    "For the purposes of determining traversibility, all locations within a node are equivalent."
+
+Nodes have Exits.
+	Exits have:
+		- a destination Node (initially blank; a loose end)
+		- a set of requirements that must be met for it to be traversible (possibly, nothing).
+			These requirements can be overridden.
+			They might require link to be the right age.
+			They might require time-of-day.
+			They might require items.
+			They might require tricks.
+			They might require preset parameters like Open Forest.
+
+So you have Node A and Node B.
+Each has an exit.
+A's exit is made to point at B; B's exit is made to point at A.
+
+On the node graph, two separate hairballs now have a single strand connecting them.
+	A nice arrowhead gets drawn on it to describe the relation: link only has the items to go one way.
+	The user knows some tricks, though, and selects the connection, overriding the restriction.
+
+
+
+Data-structurally, this is getting tough.
+Registers full. Clump.
+
+I know that if I can just get a dataframe (or pair) that has ALL the information in it nicely, I can make a nice graph out of it.
+	Simple. Final DF frame pair. OK, that's two things.
+The filtering pattern is also critical. I can't just modify this dataframe willy-nilly.
+
+[the DF of the full default node list] =>
+ [a filter for visibility e.g. running off a new column with elements that can be individually targeted] =>
+ 	[the DF of nodes that actually goes to the network plot]
+
+[the DF of the initial edge node relations] =>
+	[a doodad that selectively removes and adds lines from that dataframe according to user input] =>
+		[a complete description how the nodes link together]
+
+
+
+
+Goron City's nodes?
+	Main
+		(needs ZL+Ocarina to get to Darunia's Room)
+		(needs bombs, strength, fire, hammer, or arrows to go to LW warp)
+		(needs SoT, or Hookshot + Goron Tunic, or Longshot to get By Grotto)
+		no restrictions to go out the top entrance.
+		Shop is an exit too, and it has its own requirements.
+	Darunia's Room
+		(free to go to main)
+		(needs trick as child to take exit, but is free as adult)
+	Lost Woods Warp
+		(no requirements to exit)
+		(needs bombs, fire, or hammer to go to city)
+	By grotto
+		(no restrictions to leave in any direction)
+
+Lost Woods?
+	Main
+		Exit to Kokiri (free)
+		Exit through goron warp (free)
+		Exit through gotto-by-goron (bombs or hammer)
+		Exit through ZR (any scale, OR iron boots * adult)
+		Exit through theater grotto (free)
+		Exit to Bridge (...adult with hover boots or longshot?)
+		Exit to "Beyond Mido" (free as child, adult needs ocarina + Saria's)
+	Bridge
+		Exit to Kokiri (free)
+		Exit to HF (free)
+		Exit to LW Main (....hookshot? I'm not sure.)
+	Beyond Mido
+		Exit to Kokiri (free) [special case: cannot arrive via this path, and must go to the same place as the main LW exit]
+		    I considered that it may be possible to simply DELETE it, but that is not valid.
+		Exit via near-SFM grotto (bombs or hammer)
+		Exit to SFM (free)
+		Exit to pre-mido (free as child, adult needs ocarina + Saria's)
+
+Gerudo Valley:
+	Easy, three nodes.
+	oh wait no it is not
+	It's *four* because of that rock ledge.
+	Five, if you want to work in that crate!
+	(I am NOT working in strict check accessibility. Period!)
+
+So if there's a direct connection between things and it's NOT a "from anywhere" warp (savewarp, song)...
+...it should have a line.
+
+Although the most common use case is bidirectionality, there's enough special cases that it's wiser to build around
+being able to define half-connections.
+    Probably, you have a checkbox, marked "symmetrical connections".
+    User says "connect from Loose End H to Loose End P".
+        There is a basic check that this operation is valid.
+        There are also checks against special cases HERE.
+    If those all pass, it'll create one connection or two, according to the checkbox.
+    Since the underlying data was changed, the nodemap gets updated, and the visuals flow from that naturally.
+
+----------------------
+
+After that's done, development branches in multiple directions.
+
+1. The big one. Tracking checks, especially what's available.
+	Would be OK to equal what TooTR does.
+	List the checks associated with each place.
+2. Finding shortest path across the map. (Algorithm stuff, and holding estimated information on time taken for certain connections.)
